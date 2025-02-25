@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Predictions</title>
+    <style>
+        /* General body styling */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Centering the content */
+        .salary {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        h3 {
+            color: #34495e;
+            font-size: 1.6em;
+            margin: 10px 0;
+            font-weight: 400;
+        }
+
+        h4 {
+            float: left;
+            color: #7f8c8d;
+            font-size: 1.2em;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+
+        /* Form styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        select, input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 1.1em;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        select:focus, input[type="text"]:focus {
+            border-color: #2980b9;
+            box-shadow: 0 0 10px rgba(41, 128, 185, 0.3);
+        }
+
+        option {
+            font-size: 1em;
+        }
+
+        button {
+            width: 85%;
+            padding: 15px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background-color: #3498db;
+        }
+
+        button:active {
+            background-color: #1f618d;
+        }
+
+        /* Subtle bottom border for the input fields */
+        input[type="text"], select {
+            border-bottom: 2px solid #ddd;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 600px) {
+            .salary {
+                width: 90%;
+                padding: 25px;
+            }
+
+            select, input[type="text"], button {
+                width: 100%;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="salary">
+        <h1>Salary Predictions</h1>
+        <h3>{{salary}}</h4>
+        <form action="/" method="post">
+            {% for item, values in data.items() %}
+                <h4>select {{ item }}</h4>
+                <select name="{{ item }}" >
+                    <option value="" disabled selected>Select the {{ item }}</option>
+                    {% for i in values %}
+                        <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+            {% endfor %}<br>
+            <h4>Enter Years of Experience</h4>
+            <input type="text" name="exp" placeholder="Enter years of experience"><br><br>
+            <button type="submit" >predict</button>
+        </form>
+        
+    </div>
+</body>
+</html>
