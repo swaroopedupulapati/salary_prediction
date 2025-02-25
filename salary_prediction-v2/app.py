@@ -1,5 +1,4 @@
 from flask import Flask,render_template,redirect,request
-
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import OneHotEncoder
@@ -7,8 +6,6 @@ from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.metrics import mean_absolute_error, r2_score
-
-
 import pandas as pd
 
 # Load the dataset
@@ -50,30 +47,11 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 # Train the model
 model_pipeline.fit(X_train, y_train)
 
-
-
 # Function to predict salary based on user input
 def predict_salary(input_data):
-    # Collect input data from the user
-    # gender = input("Enter Gender (Male/Female): ")
-    # education_level = input("Enter Education Level (e.g., Bachelor's, Master's, PhD): ")
-    # jobrole = input("Enter Job Role (e.g., Software Engineer, Data Analyst, etc.): ")
-    # years_experience = float(input("Enter YearsExperience: "))
-
-    # # Create a dataframe with the input data
-    # input_data = {
-    #     'Gender': [gender],
-    #     'Education Level': [education_level],
-    #     'Jobrole': [jobrole],
-    #     'YearsExperience': [years_experience]
-    # }
-    
-    import pandas as pd
     input_df = pd.DataFrame(input_data)
-    
     # Use the trained model pipeline to predict the salary
     predicted_salary = model_pipeline.predict(input_df)
-    
     print(f"Predicted Salary: {predicted_salary[0]:.2f}")
     return round(predicted_salary[0]/1000 , 2)
 
@@ -84,8 +62,6 @@ for i in data:
     j=list(set(df[i]))
     a[i]=j
 
-
-
 app = Flask(__name__)
 
 @app.route('/', methods=["GET", "POST"])
@@ -93,7 +69,6 @@ def index():
     global a
     if request.method=='POST':
         data={}
-
         for i in a.keys():
             data[i]=[request.form[i]]
         data["YearsExperience"]=[request.form["exp"]]
